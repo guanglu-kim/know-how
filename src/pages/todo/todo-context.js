@@ -2,14 +2,17 @@ import React, { createContext, useReducer } from "react";
 import UUID from "pure-uuid";
 
 const initContext = () => ({
-  todos: []
+  todos: [],
+  isDirty: false
 });
 
 const initItem = () => {
   return {
     id: new UUID(4).toString(),
     value: "",
-    isdone: false
+    isdone: false,
+    create_date: new Date().toISOString(),
+    done_date: new Date(9999),
   };
 };
 
@@ -19,10 +22,12 @@ export const TODO_ADD = "TODO_ADD";
 export const TODO_UPDATE = "TODO_UPDATE";
 export const TODO_LOAD = "TODO_LOAD";
 export const TODO_DELETE = "TODO_DELETE";
+export const TODO_SYNC = "TODO_SYNC";
 
 const reducer = (state, action) => {
   var newState = JSON.stringify(state);
   newState = JSON.parse(newState);
+  newState.isDirty = true;
   const { data } = action;
   switch (action.type) {
     case TODO_ADD:
@@ -31,13 +36,23 @@ const reducer = (state, action) => {
       newState.todos.push(newItem);
       break;
     case TODO_UPDATE:
-      newState.todos.find(item => item.id === data.id).isdone = data.isdone;
+      const item = newState.todos.find(item => item.id === data.id)
+      item.isdone = data.isdone;
+      if(item.isdone === true){
+        item.done_date = new Date();
+      } else {
+        item.done_date = new Date(9999);
+      }
       break;
     case TODO_LOAD:
       newState.todos = data;
+      newState.isDirty = false;
       break;
     case TODO_DELETE:
       newState.todos.removeById(data.id);
+      break;
+    case TODO_SYNC:
+      newState.isDirty = false;
       break;
     default:
       return state;

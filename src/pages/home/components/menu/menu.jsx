@@ -14,7 +14,14 @@ export default function Menu() {
           url: "/todo",
           icon: "EventToDoLogo",
           key: "todo"
-        }
+        },
+        {
+          name: "脑图",
+          url: "/naotu",
+          icon: "Education",
+          key: "naotu"
+        },
+        
       ]
     }
   ];
