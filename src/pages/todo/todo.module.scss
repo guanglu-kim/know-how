@@ -1,0 +1,20 @@
+.Todo {
+  .editStack {
+    width: 50%;
+  }
+  .todoStack {
+    padding-top: 10px;
+    .todoItem {
+      display: flex;
+      height: 20px;
+    }
+    .todoItem button {
+      display: none;
+    }
+    .todoItem:hover button {
+        display: block;
+        margin: -5px 0 0 10px;
+        color: red;
+    }
+  }
+}

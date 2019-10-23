@@ -1,0 +1,16 @@
+.Header {
+    height: 48px;
+    display: flex;
+    box-shadow: rgba(0,0,0,.08) 0 1px 0;
+    position: relative;
+    .content {
+        flex:1;
+        box-shadow: rgba(0,0,0,.08) 0 1px 0;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        .Logo {
+            color: blue;
+        }
+    }
+}
